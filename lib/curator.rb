@@ -66,4 +66,19 @@ class Curator
     end
   end
 
+  def load_artists(file)
+    data = CSV.readlines(file, headers: true, header_converters: :symbol)
+    data.each do |line|
+      artist = Artist.new(line.to_h)
+      @artists << artist
+    end
+  end
+
+  def photographs_taken_between(range)
+    years = range.to_a.map { |year| year.to_s }
+    @photographs.find_all do |photo|
+      years.include?(photo.year)
+    end.map { |photo| photo.name }
+  end
+
 end
