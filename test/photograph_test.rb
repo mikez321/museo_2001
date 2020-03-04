@@ -31,8 +31,3 @@ class PhotographTest < Minitest::Test
     assert_equal "1954", photograph.year
   end
 end
-
-# photograph.artist_id
-#=> "4"
-# photograph.year
-#=> "1954"
