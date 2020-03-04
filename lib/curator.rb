@@ -1,3 +1,4 @@
+require 'csv'
 class Curator
   attr_reader :photographs, :artists
   def initialize
@@ -54,6 +55,14 @@ class Curator
      @photographs.find_all do |photo|
         photo.artist_id == id
       end
+    end
+  end
+
+  def load_photographs(file)
+    data = CSV.readlines(file, headers: true, header_converters: :symbol)
+    data.each do |line|
+      photograph = Photograph.new(line.to_h)
+      @photographs << photograph
     end
   end
 
