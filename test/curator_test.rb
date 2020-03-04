@@ -318,7 +318,31 @@ class CuratorTest < Minitest::Test
     assert_equal "Rue Mouffetard, Paris (Boy with Bottles)", curator.photographs.first.name
   end
 
-  # def test_it_can_load_arts
-  #
-  # end
+  def test_it_can_load_artists_from_file
+    curator = Curator.new
+    curator.load_artists("./data/artists.csv")
+
+    assert_equal 6, curator.artists.length
+    assert_equal Artist, curator.artists.first.class
+    assert_equal "Henri Cartier-Bresson", curator.artists.first.name
+  end
+
+  def test_it_can_load_photographs_taken_between_years
+    curator = Curator.new
+    curator.load_photographs("./data/photographs.csv")
+    curator.load_artists("./data/artists.csv")
+    # I know this asked for objects, but couldn't think of a good way to differentiate them
+    # so went with names intead of just objects
+    expected = ["Rue Mouffetard, Paris (Boy with Bottles)", "Child with Toy Hand Grenade in Central Park"]
+
+    assert_equal expected, curator.photographs_taken_between(1950..1965)
+  end
+
+  def test_it_can_tell_age_of_artist_when_photo_was_taken
+    curator = Curator.new
+    curator.load_photographs("./data/photographs.csv")
+    curator.load_artists("./data/artists.csv")
+    artists_photographs_by_age(artist)
+
+  end
 end
