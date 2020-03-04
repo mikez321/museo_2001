@@ -34,4 +34,13 @@ class CuratorTest < Minitest::Test
     curator.add_photograph(photo_2)
     assert_equal [photo_1, photo_2], curator.photographs
   end
+
+  def test_it_starts_with_no_artists
+    curator = Curator.new
+    assert_equal [], curator.artists
+  end
+
+  def test_it_can_add_artists
+
+  end
 end
